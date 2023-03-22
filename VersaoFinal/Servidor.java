@@ -44,11 +44,10 @@ public class Servidor {
 
     public void ShareMessage(String message, Socket author){
         for (ClientModel actualClient : ConnectedClients) {
-            if(actualClient.client.getInetAddress().getHostAddress() != 
-                author.getInetAddress().getHostAddress()){
-                    actualClient.ps.println(message);
+            if(actualClient.client.getInetAddress().getHostAddress().compareTo(author.getInetAddress().getHostAddress()) != 0 ){
+                actualClient.ps.println(message);
 
-                }
+            }
         }
     }
 

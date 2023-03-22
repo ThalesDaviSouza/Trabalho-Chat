@@ -51,8 +51,7 @@ public class Client {
 
             while(keyboard.hasNextLine())
             {
-                System.out.print("["+username+"]: ");
-                output.println(keyboard.nextLine());
+                output.println("["+username+"]: " + keyboard.nextLine());
             }
             output.close();
             socket.close();
