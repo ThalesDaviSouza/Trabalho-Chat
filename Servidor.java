@@ -13,7 +13,7 @@ public class Servidor {
         try {
             new Servidor(12345).Host();
         } catch (Exception e) {
-            // TODO: handle exception
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
@@ -37,7 +37,12 @@ public class Servidor {
 
             ClientThread threadClient = new ClientThread(client.getInputStream(), this, client);
             new Thread(threadClient).start();
+            
+            if(this.ConnectedClients.size() < 0)
+              break;
         }
+        System.out.println("Server Closed!");
+        server.close();
     }
 
     public void ShareMessage(String message, Socket author){

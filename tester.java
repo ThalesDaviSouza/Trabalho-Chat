@@ -5,7 +5,7 @@ public class tester {
             server.Host();
             
         } catch (Exception e) {
-            // TODO: handle exception
+            System.out.println("Error: " + e.getMessage());
         }
     }
 }
