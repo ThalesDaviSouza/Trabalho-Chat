@@ -1,5 +1,3 @@
-package VersaoFinal;
-
 import java.io.InputStream;
 import java.net.Socket;
 import java.util.Scanner;

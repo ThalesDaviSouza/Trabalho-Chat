@@ -1,5 +1,3 @@
-package VersaoFinal;
-
 import java.io.PrintStream;
 import java.net.Socket;
 
