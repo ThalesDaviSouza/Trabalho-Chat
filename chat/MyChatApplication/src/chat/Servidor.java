@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  *
- * @author Pichau
+ * @author hashi
  */
 public class Servidor implements Runnable {
 
@@ -32,16 +32,14 @@ public class Servidor implements Runnable {
         try {
             ServerSocket server = new ServerSocket(this.port);
             msg_area.setText("Server started in port: " + port + "\n");
-            
+
             while (true) {
                 Socket client = server.accept();
                 msg_area.setText(msg_area.getText() + "\nConnected with a new client: "
                         + client.getInetAddress().getHostAddress());
 
                 PrintStream ps = new PrintStream(client.getOutputStream());
-                
-                
-                
+
                 this.ConnectedClients.add(new ClientModel(ps, client));
 
                 ClientThread threadClient = new ClientThread(client.getInputStream(), this, client);
@@ -58,14 +56,12 @@ public class Servidor implements Runnable {
     }
 
     public void ShareMessage(String message, Socket author) {
-        msg_area.setText(msg_area.getText() + "\n"+message);
-       
+        msg_area.setText(msg_area.getText() + "\n" + message);
+
         for (ClientModel actualClient : ConnectedClients) {
-            if (actualClient.client.getInetAddress().getHostAddress().compareTo(author.getInetAddress().getHostAddress()) != 0) {
-            }  
             actualClient.ps.println(message);
-            
+
         }
-        
+
     }
 }

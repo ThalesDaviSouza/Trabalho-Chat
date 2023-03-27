@@ -9,9 +9,10 @@ import java.net.Socket;
 
 /**
  *
- * @author Pichau
+ * @author hashi
  */
 public class ClientModel {
+
     public PrintStream ps;
     public Socket client;
 

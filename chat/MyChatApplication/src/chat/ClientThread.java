@@ -11,9 +11,9 @@ import java.util.Scanner;
 
 /**
  *
- * @author Pichau
+ * @author hashi
  */
-public  class ClientThread implements Runnable {
+public class ClientThread implements Runnable {
 
     private InputStream client;
     private Servidor server;
@@ -30,8 +30,8 @@ public  class ClientThread implements Runnable {
         // quando chegar uma msg, distribui pra todos
         Scanner s = new Scanner(this.client);
         while (s.hasNextLine()) {
-            
-            server.ShareMessage( s.nextLine(), clientIp);
+
+            server.ShareMessage(s.nextLine(), clientIp);
         }
         s.close();
     }

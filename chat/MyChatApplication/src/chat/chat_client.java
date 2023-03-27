@@ -15,16 +15,13 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.rmi.UnknownHostException;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 /**
  *
- * @author mukul
+ * @author hashi
  */
 public class chat_client extends javax.swing.JFrame {
-
-    /*static Socket s;
-    static DataInputStream dis;
-    static DataOutputStream dout;*/
 
     static Client cliente;
 
@@ -77,31 +74,30 @@ public class chat_client extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(msg_textt, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(msg_send))
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 22, Short.MAX_VALUE)))
+                        .addComponent(msg_textt)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(msg_send))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(msg_textt)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(msg_send)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(msg_send, javax.swing.GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE)
+                    .addComponent(msg_textt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -109,21 +105,6 @@ public class chat_client extends javax.swing.JFrame {
 
     private void msg_sendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_msg_sendActionPerformed
         cliente.envia = true;
-
-// TODO add your handling code here:
-        /*
-        try{
-        String msg="";
-        msg=msg_text.getText();
-        dout.writeUTF(msg);
-        msg_text.setText("");
-        }
-        catch(Exception e)
-        {
-        //handle the exception here
-        }
-         */
-
     }//GEN-LAST:event_msg_sendActionPerformed
 
     private void msg_texttActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_msg_texttActionPerformed
@@ -135,40 +116,15 @@ public class chat_client extends javax.swing.JFrame {
      */
     public static void main(String args[])
             throws UnknownHostException, IOException {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
- /*
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(chat_client.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(chat_client.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(chat_client.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(chat_client.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-         */
-        //</editor-fold>
 
-        //Scanner s = new Scanner(System.in);
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new chat_client().setVisible(true);
                 try {
-                    msg_areaa.setText("Nome: ");
-                    String user = msg_textt.getText();
-                    cliente = new Client("127.0.0.1", 12345, user);
+                    String host = JOptionPane.showInputDialog("Digite o IP: ");
+                    String user = JOptionPane.showInputDialog("Digite seu nome: ");
+                    cliente = new Client(host, 12345, user);
                     Thread thread = new Thread(cliente);
                     thread.start();
                 } catch (Exception e) {
@@ -177,24 +133,6 @@ public class chat_client extends javax.swing.JFrame {
             }
         });
 
-        //s.close();
-        /*
-         try {
-            String msgin = "";
-            
-            s = new Socket("127.0.0.1",1201); // ip address is of localhost because server is running on the same mschine
-            dis = new DataInputStream(s.getInputStream());
-            dout = new DataOutputStream(s.getOutputStream());
-
-            while (!msgin.equals("exit")) {
-                msgin = dis.readUTF();
-                msg_areaa.setText(msg_areaa.getText() + "\n Server : " + msgin);
-            }
-
-        } catch (Exception e) {
-            //handle the exception here
-        }
-         */
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

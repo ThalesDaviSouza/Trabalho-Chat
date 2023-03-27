@@ -10,9 +10,10 @@ import java.util.Scanner;
 
 /**
  *
- * @author Pichau
+ * @author hashi
  */
 public class ClientReceiver implements Runnable {
+
     private InputStream server;
 
     public ClientReceiver(InputStream server) {
@@ -20,12 +21,11 @@ public class ClientReceiver implements Runnable {
     }
 
     @Override
-    public void run(){
+    public void run() {
         Scanner receiver = new Scanner(this.server);
-        while(receiver.hasNextLine())
-        {
-           
-            msg_areaa.setText( msg_areaa.getText()+"\n"+receiver.nextLine());
+        while (receiver.hasNextLine()) {
+
+            msg_areaa.setText(msg_areaa.getText() + "\n" + receiver.nextLine());
         }
         receiver.close();
     }

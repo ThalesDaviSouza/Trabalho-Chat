@@ -12,29 +12,19 @@ import java.net.Socket;
 import java.rmi.UnknownHostException;
 import java.util.Scanner;
 
-
 /**
  *
- * @author Pichau
+ * @author hashi
  */
-public class Client implements Runnable{
-    /*public static void main(String[] args) 
-      throws UnknownHostException, IOException{
-        Scanner s = new Scanner(System.in);
-        System.out.println("Nome: ");
-        String user = s.nextLine();
-        
-        new Client("10.0.0.17", 12345, user).executa(s);
-        s.close();
-    }
-*/
+public class Client implements Runnable {
+
     private String host;
     private int port;
     public Socket socket;
     public String username;
     public boolean envia = false;
 
-    public Client(String host, int port, String username){
+    public Client(String host, int port, String username) {
         this.host = host;
         this.port = port;
         this.username = username;
@@ -44,39 +34,36 @@ public class Client implements Runnable{
             System.out.println("Error: " + e.getMessage());
         }
     }
-    
+
     @Override
-    public void run(){
-        if(socket == null){
+    public void run() {
+        if (socket == null) {
             msg_areaa.setText("Unable to connect.");
             return;
-        }else{
+        } else {
             msg_areaa.setText("Client has been connected.");
         }
-        msg_areaa.setText( msg_areaa.getText()+"\n Server ip: " + socket.getInetAddress().getHostAddress());
-        
-        
-        
+        msg_areaa.setText(msg_areaa.getText() + "\n Server ip: " + socket.getInetAddress().getHostAddress());
+
         try {
             ClientReceiver receiver = new ClientReceiver(socket.getInputStream());
             new Thread(receiver).start();
 
-            PrintStream output = new PrintStream(socket.getOutputStream());  
+            PrintStream output = new PrintStream(socket.getOutputStream());
 
-            while(true)
-            {
+            while (true) {
                 Thread.sleep(1);
-                if(envia == true){
-                output.println("["+username+"]: " + msg_textt.getText());
-                envia=false;
+                if (envia == true) {
+                    output.println("[" + username + "]: " + msg_textt.getText());
+                    envia = false;
+                    msg_textt.setText("");
                 }
-                
+
             }
-            //output.close();
-            //socket.close();
-        }catch(Exception e){
+
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        
+
     }
 }
