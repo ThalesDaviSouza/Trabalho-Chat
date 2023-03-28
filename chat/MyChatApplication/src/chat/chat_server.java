@@ -40,7 +40,9 @@ public class chat_server extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         msg_area.setColumns(20);
+        msg_area.setLineWrap(true);
         msg_area.setRows(5);
+        msg_area.setMinimumSize(new java.awt.Dimension(417, 301));
         jScrollPane1.setViewportView(msg_area);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
